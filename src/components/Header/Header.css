@@ -1,0 +1,21 @@
+.header{
+    width: 100%;
+    height: 120px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #fff;
+}
+.header img{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    box-shadow: 3px 3px 7px 3px grey;
+    background-color: #191970;
+    cursor: pointer;
+    transition: transform .2s linear;
+}
+.header img:hover {
+    transform: scale(1.15) rotate(-5deg);
+}

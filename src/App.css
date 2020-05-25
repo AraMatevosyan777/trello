@@ -1,0 +1,10 @@
+.App {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.app-wrapper{
+  width: 90%;
+  padding-top: 20px;
+}

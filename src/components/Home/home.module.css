@@ -1,0 +1,98 @@
+.home{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/*BoardCreator------------------ */
+.BoardCreator{
+    width: 30%;
+    background-color: #9fe7a4;
+    border-radius: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px 0;
+    color: #fff;
+    margin-right: 40px;
+    margin-bottom: 40px;
+    position: relative;
+    box-shadow: 3px 3px 10px 2px grey;
+    transition: transform .1s linear;
+}
+.BoardCreator:hover{
+    transform: scale(1.1);
+}
+.header{
+    width: 100%;
+    border-bottom: 1px solid #fff;
+    padding: 20px;
+}
+
+.body{
+    width: 100%;
+    padding: 20px 40px;
+}
+.subtitle{
+    font-size: 14px;
+}
+.body input{
+    width: 100%;
+    margin: 20px 0;
+}
+.body div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.body div *{
+    font-size: 16px;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin: 0 10px;
+}
+.body div button{
+    padding: 10px 20px;
+}
+/* board------------ */
+.board{
+    width: 30%;
+    height: auto;
+    margin-right: 40px;
+    margin-bottom: 40px;
+}
+.board:last-child{
+    margin-right: 0px;
+}
+
+.boardBody{
+    background-color: #fff;
+    width: 100%;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    padding-top: 15px;
+    transition: transform .1s linear;
+    box-shadow: 3px 3px 10px 2px grey;
+}
+.boardBody:hover{
+    transform: scale(1.1);
+}
+.board:first-child .boardBody{
+    background-color: #9fe7a4;
+    color: #fff;
+}
+.boardBody div{
+    width: 100%;
+    padding: 35px 20px 50px;
+    display: flex;
+    justify-content: center;
+}
+.board:first-child .boardBody div h3 {
+    text-shadow: 2px 2px 3px grey;
+  }

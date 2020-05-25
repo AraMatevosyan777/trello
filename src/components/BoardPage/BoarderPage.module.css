@@ -1,0 +1,163 @@
+.BoardPage{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.BoardPageContent{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: start;
+}
+.header{
+    width: 100%;
+}
+.headerTitle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    padding: 10px 20px;
+    background-color: #9fe7a4;
+    color: #fff;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 3px 3px 10px 2px grey;
+}
+.headerTitle h1 {
+    text-shadow: 2px 2px 3px grey;
+  }
+
+/* ---------Add List */
+.AddList{
+    width: 25%;
+}
+
+.AddListItem{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #191970;
+    width: 50%;
+    padding: 40px 30px;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    box-shadow: 3px 3px 10px 2px grey;
+    transition: transform .2s linear;
+}
+.AddListItem:hover{
+    transform: scale(1.05);
+}
+
+.form{
+    display: flex;
+    justify-content: start;
+    align-items: flex-start;
+    width: 100%;
+    padding: 25px 10px 55px;
+    background-color: rgba(255, 255, 255, 0.918);
+    margin: 10px;
+    position: relative;
+}
+.form input{
+    width: 90%;
+    background-color: #fff;
+}
+/* NotesList----------- */
+
+.NotesList{
+    width: 23%;
+    height: auto;
+    margin: 10px;
+}
+.NotesListBody{
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+    padding: 5px;
+    box-shadow: 3px 3px 10px 2px grey;
+}
+.NotesListHeader{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-transform: uppercase;
+    padding: 20px;
+    border-bottom: 1px solid #ccc;
+}
+.NotesForm{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+}
+.NotesForm input{
+    width: 90%;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+/* note------------ */
+.note{
+    width: 90%;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 3px 3px 10px 2px grey;
+    margin-bottom: 10px;
+    background-color: paleturquoise;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.note h4{
+    width: 80%;
+}
+.noteSettings{
+    width: 20%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.checkIcon{
+    width: 20px;
+    height: 20px;
+    fill: forestgreen;
+    border-radius: 50%;
+    transition: transform .1s linear;
+    cursor: pointer;
+}
+.checkIcon:hover{
+    transform: scale(1.25);
+}
+.noteSettings span{
+    position: unset;
+    background-color: paleturquoise;
+    color: firebrick;
+    border-color: firebrick;
+}
+/* disabledNote----------- */
+.disabledNote{
+    background-color: #ccc;
+}
+.disabledNote h4{
+    color: grey;
+}
+.disabledNote span{
+    background-color: #ccc;
+    color: grey;
+    border-color: grey;
+}
+.disabledNote .checkIcon{
+   fill: grey;
+}
+.disabledNote .checkIcon:hover, .disabledNote span:hover{
+   fill: forestgreen;
+   color: firebrick;
+    border-color: firebrick;
+}

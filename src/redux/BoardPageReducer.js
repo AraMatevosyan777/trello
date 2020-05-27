@@ -1,13 +1,14 @@
-import *as axios from 'axios';
+import { BoardApi } from '../api/api';
 const SET_BOARD = 'SET_BOARD';
-const SET_NEW_NOTES_LIST = 'SET_NEW_NOTES_LIST';
-const ON_NOTES_LIST_DELETE = 'ON_NOTES_LIST_DELETE';
-const SET_NEW_NOTE = 'SET_NEW_NOTE';
+const SET_LISTS = 'SET_LISTS';
+const SET_NEW_LIST = 'SET_NEW_LIST';
+const ON_LIST_DELETE = 'ON_LIST_DELETE';
 const ON_NOTE_DELETE = 'ON_NOTE_DELETE';
 const SET_CHECK_TOGGLE = 'SET_CHECK_TOGGLE';
 
 const initialState = {
     board: null,
+    lists: [],
 }
 
 export const boardPageReducer = (state=initialState, action) => {
@@ -15,28 +16,29 @@ export const boardPageReducer = (state=initialState, action) => {
         case SET_BOARD:
             return{
                 ...state,
-                board: action.payload
+                board: action.payload,
+
             }
-        case SET_NEW_NOTES_LIST:
-            let newNotesList = action.newNotesList
+        case SET_LISTS:
             return{
                 ...state,
-                board: {...state.board, 
-                notesLists: {...state.board.notesLists, newNotesList}},
+                lists: action.payload,
             }
-        case ON_NOTES_LIST_DELETE:
+        case SET_NEW_LIST:
             return{
                 ...state,
-                board: Object.keys(state.board.notesLists).filter(key => key !== action.id),
+                lists: [...state.lists, action.payload]
             }
-        case SET_NEW_NOTE:
-            let newNote = action.note;
+        case ON_LIST_DELETE:
             return{
                 ...state,
-                board: {...state.board,
-                notesLists: {...state.board.notesLists,
-                notes: {...state.board.notesLists.notes, newNote}}},
+                lists: state.lists.filter(list => list.id !== action.listId),
             }
+
+
+
+
+
         case ON_NOTE_DELETE:
             return{
                 ...state,
@@ -66,53 +68,76 @@ export const boardPageReducer = (state=initialState, action) => {
 }
 
 const setBoard = (payload) => ({type: SET_BOARD, payload});
-const setNewNotesList = (newNotesList) => ({type: SET_NEW_NOTES_LIST, newNotesList});
-const onNotesListDelete = (id) => ({type: ON_NOTES_LIST_DELETE, id});
-const setNewNote = (note) => ({type: SET_NEW_NOTE, note});
+const setLists = (payload) => ({type: SET_LISTS, payload});
+const setNewList = (payload) => ({type: SET_NEW_LIST, payload});
+const onListDelete = (listId) => ({type: ON_LIST_DELETE, listId});
 const onNoteDelete = (id) => ({type: ON_NOTE_DELETE, id});
 const setCheckToggle = (noteId) => ({type: SET_CHECK_TOGGLE, noteId});
 
 
-export const requestBoard = (id) => async(dispatch) => {
-    const response = await axios.get(`https://trello-9593c.firebaseio.com/boards/${id}.json`);
-    dispatch(setBoard(response.data));
-}
-export const addNewNoteList = (value,id) => async(dispatch) => {
-    let notesList = {
-        title: value
+export const requestBoard = (boardId) => async(dispatch) => {
+    const response = await BoardApi.requestBoard(boardId);
+    const payload = {
+        title: response.data.title,
+        id: boardId
     }
-    const response = await axios.post(`https://trello-9593c.firebaseio.com/boards/${id}/notesLists.json`, notesList);
-    const newNotesList = {
-        ...notesList,
+    dispatch(setBoard(payload));
+    dispatch(requestLists(boardId));
+}
+const requestLists = (boardId) => async(dispatch) => {
+    const response = await BoardApi.requestLists(boardId);
+    if (response.data != null) {
+        const payload = Object.keys(response.data).map(key => {
+            return {
+                ...response.data[key],
+                id: key
+            }
+        })
+        dispatch(setLists(payload))
+    }
+}
+
+export const addNewList = (value) => async(dispatch, getState) => {
+    let boardId = getState().boardPage.board.id;
+    let list = {
+        title: value,
+    }
+    const response = await BoardApi.addNewList(list,boardId)
+    const payload = {
+        ...list,
         id: response.data.name
     }
-    dispatch(setNewNotesList(newNotesList))
+    dispatch(setNewList(payload))
 }
-export const deleteNotesList= (listId,boardId) => async(dispatch) => {
-    await axios.delete(`https://trello-9593c.firebaseio.com/boards/${boardId}/notesLists/${listId}.json`);
-    dispatch(onNotesListDelete(listId))
+
+export const deleteList= (listId) => async(dispatch, getState) => {
+    let boardId = getState().boardPage.board.id;
+    await BoardApi.deleteList(boardId,listId);
+    dispatch(onListDelete(listId))
 }
 
 
-export const addNewNote = (value,listId, boardId) => async(dispatch) => {
-    let note = {
+export const addNewNote = (value,listId) => async(dispatch, getState) => {
+    let boardId = getState().boardPage.board.id;
+    const note = {
         checked: true,
         title: value,
     }
-    const response = await axios.post(`https://trello-9593c.firebaseio.com/boards/${boardId}/notesLists/${listId}/notes.json`, note);
-    const newNotesList = {
-        ...note,
-        id: response.data.name
-    }
-    dispatch(setNewNote(newNotesList));
+    await BoardApi.addNewNote(boardId,listId,note);
+    dispatch(requestLists(boardId))
 }
-export const onCheckedToggle = (toggle,noteId, listId, boardId) => async(dispatch) => {
-    await axios.put(`https://trello-9593c.firebaseio.com/boards/${boardId}/notesLists/${listId}/notes/${noteId}/checked.json`, toggle);
-    dispatch(setCheckToggle(noteId));
+
+
+export const onChecked = (listId, noteId, check) => async(dispatch, getState) => {
+    let boardId = getState().boardPage.board.id;
+    await BoardApi.onChecked(boardId,listId,noteId,check)
+    dispatch(requestLists(boardId));
 }
-export const deleteNote = (noteId, listId, boardId) => async(dispatch) => {
-    await axios.delete(`https://trello-9593c.firebaseio.com/boards/${boardId}/notesLists/${listId}/notes/${noteId}.json`);
-    dispatch(onNoteDelete(noteId));
+
+export const deleteNote = (listId, noteId) => async(dispatch,getState) => {
+    let boardId = getState().boardPage.board.id;
+    await BoardApi.deleteNote(boardId,listId,noteId);
+    dispatch(requestLists(boardId))
 }
 
 

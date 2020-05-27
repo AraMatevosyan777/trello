@@ -1,4 +1,4 @@
-import *as axios from 'axios';
+import { HomeApi } from '../api/api';
 
 const SET_BOARDS = 'SET_BOARDS';
 const SET_NEW_BOARD = 'SET_NEW_BOARD';
@@ -35,7 +35,7 @@ const setNewBoard = (newBoard) => ({type: SET_NEW_BOARD, newBoard});
 const onDeleteBoard = (id) => ({type: ON_DELETE_BOARD, id});
 
 export const requestBoards = () => async(dispatch) => {
-    const response = await axios.get(`https://trello-9593c.firebaseio.com/boards.json`);
+    const response = await HomeApi.requestBoards();
     if(response.data !== null){
         const payload = Object.keys(response.data).map(key => {
         return{
@@ -48,11 +48,9 @@ export const requestBoards = () => async(dispatch) => {
 }
 export const addNewBoard = (title) => async(dispatch) => {
     let newBoard = {
-        notesLists: '',
-        id: Date.now(),
         title: title
     };
-    const response = await axios.post(`https://trello-9593c.firebaseio.com/boards.json`, newBoard);
+    const response = await HomeApi.addNewBoard(newBoard);
     const board = {
         ...newBoard,
         id: response.data.name
@@ -61,6 +59,6 @@ export const addNewBoard = (title) => async(dispatch) => {
 
 }
 export const deleteBoard = (id) => async(dispatch) => {
-    await axios.delete(`https://trello-9593c.firebaseio.com/boards/${id}.json`);
+    await HomeApi.deleteBoard(id);
     dispatch(onDeleteBoard(id))
 }

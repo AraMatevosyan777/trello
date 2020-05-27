@@ -9,8 +9,8 @@ const Note = (props) => {
     props.onNoteDelete(props.id);
   }
   const onCheck = () => {
-    let toggle = !props.note.checked
-    props.onCheck(toggle,props.id);
+    let check = !props.note.checked
+    props.onCheck(props.id, check);
   }
 
   return (

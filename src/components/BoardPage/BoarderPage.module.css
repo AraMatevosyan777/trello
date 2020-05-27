@@ -38,7 +38,7 @@
     justify-content: center;
     align-items: center;
     background-color: #191970;
-    width: 50%;
+    width: 200px;
     padding: 40px 30px;
     color: #fff;
     border-radius: 5px;
@@ -55,6 +55,7 @@
     display: flex;
     justify-content: start;
     align-items: flex-start;
+    flex-wrap: wrap;
     width: 100%;
     padding: 25px 10px 55px;
     background-color: rgba(255, 255, 255, 0.918);
@@ -94,13 +95,12 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     align-items: center;
     padding: 20px 0;
 }
 .NotesForm input{
     width: 90%;
-    background-color: #fff;
-    border-radius: 5px;
 }
 
 /* note------------ */
@@ -114,15 +114,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
 }
 .note h4{
-    width: 80%;
+    width: 70%;
 }
 .noteSettings{
-    width: 20%;
+    position: absolute;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    right: 5px;
+    top: 10px;
 }
 .checkIcon{
     width: 20px;
@@ -131,6 +134,7 @@
     border-radius: 50%;
     transition: transform .1s linear;
     cursor: pointer;
+    margin-right: 2px;
 }
 .checkIcon:hover{
     transform: scale(1.25);
@@ -160,4 +164,80 @@
    fill: forestgreen;
    color: firebrick;
     border-color: firebrick;
+}
+
+/* -------------------------------------------- */
+
+@media(max-width: 899px){
+    .NotesList{
+        width: 30%;
+    }
+    .AddList{
+        width: 30%;
+    }
+}
+@media(max-width: 599px){
+    .AddList{
+        width: 45%;
+    }
+    .NotesList{
+        width: 45%;
+        margin: 5px;
+    }
+    .headerTitle{
+        padding: 5px 10px;
+        font-size: 14px;
+    }
+    .AddListItem{
+        width: 120px;
+        padding: 30px 0;
+        font-size: 14px;
+        margin: 5px;
+    }
+    .NotesListHeader{
+        padding: 10px;
+        font-size: 14px;
+    }
+    .NotesForm{
+        padding: 10px 0;
+    }
+}
+@media(max-width: 399px){
+    .headerTitle{
+        padding: 3px 7px;
+        font-size: 12px;
+    }
+    .AddList{
+        width: 70%;
+        display: flex;
+        justify-content: center;
+    }
+    .AddListItem{
+        width: 150px;
+        padding: 20px 0;
+        margin: 10px;
+    }
+    .NotesList{
+        width: 70%;
+        margin: 10px;
+    }
+    .BoardPageContent{
+        justify-content: center;
+    }
+    .note h4{
+        font-size: 14px;
+    }
+    .checkIcon{
+        width: 17px;
+        height: 17px;
+        margin-right: 4px;
+    }
+    .noteSettings span{
+        width: 17px;
+        height: 17px;
+        font-size: 14px;
+    }
+    .noteSettings{
+        top: 15px;
+    }
 }

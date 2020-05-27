@@ -54,6 +54,13 @@
 .body div button{
     padding: 10px 20px;
 }
+
+.body div span{
+    transition: color .1s linear;
+}
+.body div span:hover{
+    color: #000;
+}
 /* board------------ */
 .board{
     width: 30%;
@@ -79,6 +86,7 @@
     padding-top: 15px;
     transition: transform .1s linear;
     box-shadow: 3px 3px 10px 2px grey;
+    height: 125px;
 }
 .boardBody:hover{
     transform: scale(1.1);
@@ -96,3 +104,79 @@
 .board:first-child .boardBody div h3 {
     text-shadow: 2px 2px 3px grey;
   }
+
+  /* media----------------------------------------------------------*/
+  @media(max-width: 899px){
+    .board{
+        margin-right: 20px;
+    }
+    .BoardCreator{
+        margin-right: 20px;
+    }
+    .header{
+        padding: 10px;
+    }
+    .header h3{
+        font-size: 16px;
+    }
+    .body{
+        padding: 20px;
+    }
+    .body div button{
+        padding: 5px 10px;
+        font-size: 14px;
+    }
+    .body div span{
+        font-size: 14px;
+    }
+
+}
+  @media(max-width: 599px){
+    .board{
+        width: 40%;
+    }
+    .board h3{
+        font-size: 16px;
+    }
+    .home{
+        justify-content: center;
+    }
+    .boardBody{
+        height: 100px;
+    }
+    .BoardCreator{
+        width: 40%;
+    }
+    .subtitle{
+        font-size: 12px;
+    }
+    .body div button{
+        padding: 5px 5px;
+        font-size: 12px;
+    }
+    .body div span{
+        font-size: 12px;
+    }
+}
+  @media(max-width: 399px){
+    .board{
+        width: 70%;
+        margin: 0;
+        margin-bottom: 20px;
+    }
+    .boardBody{
+        height: 80px;
+    }
+    .board h3{
+        font-size: 15px;
+    }
+    .BoardCreator{
+        width: 70%;
+        margin: 0;
+        margin-bottom: 20px;
+        padding: 10px;
+    }
+    .body{
+        padding: 10px;
+    }
+}

@@ -14,15 +14,14 @@ const BoardPage = (props) => {
                 </div>
             </div>
             <div className={m.BoardPageContent}>
-                {props.board &&  props.board.notesLists && 
-                    Object.keys(props.board.notesLists).map(list => 
-                    <NotesList key={list} list={props.board.notesLists[list]} 
-                    listId={list} boardId={props.id} deleteNotesList={props.deleteNotesList}
+                {props.lists && props.lists.map(list => 
+                    <NotesList key={list.id} list={list} 
+                    deleteList={props.deleteList}
                     addNewNote={props.addNewNote}
                     deleteNote={props.deleteNote}
-                    onCheckedToggle={props.onCheckedToggle}/>)
+                    onChecked={props.onChecked}/>)
                 }
-                <AddList addNewNoteList={props.addNewNoteList} id={props.id}/>
+                <AddList addNewList={props.addNewList}/>
             </div>
         </div>
     )

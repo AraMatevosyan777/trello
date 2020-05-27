@@ -21,3 +21,11 @@
 .closeX:hover{
     transform: scale(1.2);
 }
+/* ------------------- */
+.error{
+    font-size: 13px;
+    color: #000;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
